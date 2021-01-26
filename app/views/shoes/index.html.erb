@@ -1,9 +1,2 @@
-<h1>All the Shoes</h1>
-
-<% @shoes.each do |shoe|  %>
-
-    <div>
-        <%= link_to(shoe.brand_and_color, shoe_path(shoe) )   %>
-    </div>
-
-<% end %>
+<%= display_header %>
+<%= render partial: 'shoe', collection: @shoes  %> 

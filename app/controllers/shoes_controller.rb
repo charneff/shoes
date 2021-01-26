@@ -1,17 +1,33 @@
 class ShoesController < ApplicationController
+    layout 'shoe'
+    before_action :find_shoe, only: [:show, :update, :edit, :destroy]
+
     def index
-        @shoes = Shoe.ordered_by_price
+        if params[:brand_id] && @brand = Brand.find_by_id(params[:brand_id])
+            @shoes = @brand.shoes.ordered_by_price
+        else
+            @shoes = Shoe.ordered_by_price
+        end 
     end
 
     def show
-        @shoe = Shoe.find(params[:id])
+        
     end
 
     def new 
-        @shoe = Shoe.new
+        if params[:brand_id] && @brand = Brand.find_by_id(params[:brand_id])
+            # @shoe = Shoe.new
+            # @shoe.brand = @brand 
+            @shoe = @brand.shoes.build
+           
+        else
+            @shoe = Shoe.new
+            @shoe.build_brand
+        end 
     end 
 
     def create
+        
         @shoe = Shoe.new(shoe_params)
         
         if @shoe.save
@@ -26,13 +42,13 @@ class ShoesController < ApplicationController
     end 
 
     def update 
-        @shoe = Shoe.find(params[:id])
+      
         @shoe.update(shoe_params)
         redirect_to shoe_path(@shoe)
     end 
 
     def destroy 
-        shoe = Shoe.find(params[:id])
+        
         shoe.destroy
         redirect_to shoes_path
 
@@ -47,11 +63,15 @@ class ShoesController < ApplicationController
 
     def shoe_params
         params[:shoe][:price_confirmation] = params[:shoe][:price_confirmation].to_f
-        params.require(:shoe).permit(:brand, :price, :price_confirmation, :color, :limited_edition)
+        params.require(:shoe).permit(:brand_id, :price, :price_confirmation, :color, :limited_edition, brand_attributes: [:name, :owner])
     end 
 
     def update_params
         params.require(:shoe).permit(:color, :price, :color)
+    end 
+    
+    def find_shoe
+        @shoe = Shoe.find(params[:id])
     end 
 
 end

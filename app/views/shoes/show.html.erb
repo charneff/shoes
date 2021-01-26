@@ -1,7 +1,7 @@
-<h1> <%= @shoe.brand_and_color %></h1>
-
-<p>Price:  <%= number_to_currency(@shoe.price) %></p>
+<%= display_limited_edition %>
+<%= render  @shoe %>
 
 <%= link_to('edit shoe', edit_shoe_path(@shoe)) %>
 
 <%= link_to('delete shoe', shoe_path(@shoe), method: 'delete') %>
+

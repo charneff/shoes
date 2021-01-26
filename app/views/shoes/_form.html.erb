@@ -1,0 +1,15 @@
+<%= render partial: 'layouts/errors', locals: { object: @shoe } %>
+<%= form_for(@shoe) do |f|%>
+   <%= display_brand_fields(f) %>
+    <%= f.label :price, "Price:" %>
+    <%= f.number_field :price, min: 0, step: 0.01 %><br><br>
+    <%= f.label :price, "Price Confirmation:" %>
+    <%= f.number_field :price_confirmation, min: 0, step: 0.01 %><br><br>
+    <%= f.label :color, "Color:"%>
+    <%= f.text_field :color  %><br><br>
+    <%= f.label :limited_edition, "Limited Edition:" %>
+    <%= f.check_box :limited_edition %>
+    <br><br>
+
+    <%= f.submit %>
+<% end %>

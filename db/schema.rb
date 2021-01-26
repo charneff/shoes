@@ -10,6 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2021_01_07_231529) do
 
+  create_table "brands", force: :cascade do |t|
+    t.string "name"
+    t.string "owner"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "shoes", force: :cascade do |t|
+    t.string "color"
+    t.float "price"
+    t.boolean "limited_edition"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "brand_id", null: false
+    t.index ["brand_id"], name: "index_shoes_on_brand_id"
+  end
+
+  add_foreign_key "shoes", "brands"
 end

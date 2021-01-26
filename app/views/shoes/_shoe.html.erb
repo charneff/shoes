@@ -1,0 +1,7 @@
+<h3>
+    <%= link_to(shoe.brand_and_color, shoe_path(shoe))%> -
+    <%= number_to_currency(shoe.price) %>
+</h3>
+<% if @brand %>
+<%= link_to "Create a shoe", new_brand_shoe_path(@brand) %>
+<% end %>

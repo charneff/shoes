@@ -1,0 +1,6 @@
+<h2>Edit Brand</h2>
+
+<%= form_for(@brand) do |f| %>
+    <%= render partial: 'fields', locals: {f: f} %>
+    <%= f.submit %>
+<% end %>

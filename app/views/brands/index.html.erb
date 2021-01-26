@@ -1,0 +1,6 @@
+<h1>All the Brands </h1>
+<% @brands.each do |brand|  %>
+    <div>
+        <%= link_to(brand.name, brand_path(brand) )   %>
+    </div>
+<% end %>
