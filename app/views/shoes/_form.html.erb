@@ -1,5 +1,5 @@
 <%= render partial: 'layouts/errors', locals: { object: @shoe } %>
-<%= form_for(@shoe) do |f|%>
+<%= form_with(model: @shoe) do |f|%>
    <%= display_brand_fields(f) %>
     <%= f.label :price, "Price:" %>
     <%= f.number_field :price, min: 0, step: 0.01 %><br><br>

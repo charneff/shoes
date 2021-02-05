@@ -6,7 +6,9 @@ class Shoe < ApplicationRecord
     # validates :price_confirmation, presence: true
     # validates :color, two_word: true
     belongs_to :brand 
+    belongs_to :user
     scope :ordered_by_price, -> { order(price: :desc) }
+    scope :less_pricey, -> (price) { where('price < ?', price)}
     # accepts_nested_attributes_for :brand
 
     def brand_attributes=(attr)
@@ -17,7 +19,7 @@ class Shoe < ApplicationRecord
 
     # def self.ordered_by_price
     #     #self.all.sort_by{|shoe| shoe.price}.last ##loads all records into RAM, then sorts
-    #     self.order(:limited_edition).order(price: :desc) ##database handles sorting
+    #     self.order(price: :desc) ##database handles sorting
     # end
 
     def brand_and_color

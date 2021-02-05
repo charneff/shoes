@@ -1,12 +1,12 @@
 class BrandsController < ApplicationController
+    before_action :set_brand, only: [:show, :update, :edit, :destroy]
 
     def new
         @brand = Brand.new
-        3.times { @brand.shoes.build }
     end 
 
     def show
-        @brand = Brand.find_by(id: params[:id])
+        
     end 
     
     def index
@@ -23,18 +23,16 @@ class BrandsController < ApplicationController
     end 
 
     def edit
-        @brand = Brand.find(params[:id])
+       
     end
 
     def update
-        brand = Brand.find(params[:id])
-        brand.update(brand_params)
+        @brand.update(brand_params)
         redirect_to brand_path(brand)
     end 
 
     def destroy
-        brand = Brand.find(params[:id])
-        brand.destroy
+        @brand.destroy
         redirect_to brands_path
     end 
 
@@ -42,6 +40,11 @@ class BrandsController < ApplicationController
     private
 
     def brand_params
-        params.require(:brand).permit(:name, :owner, shoes_attributes: [:price, :color, :limited_edition])
+        params.require(:brand).permit(:name, :owner, shoes_attributes: [:price, :price_confirmation, :color, :limited_edition])
     end 
+
+    def set_brand 
+        @brand = Brand.find_by(id: params[:id])
+    end 
+    
 end

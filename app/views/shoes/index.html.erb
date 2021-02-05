@@ -1,2 +1,8 @@
+<%= flash[:alert] %>
 <%= display_header %>
 <%= render partial: 'shoe', collection: @shoes  %> 
+<% if @brand %>
+    <%= link_to "create a new shoes for this brand", new_brand_shoe_path(@brand) %>
+    <% else %>
+<%= link_to("Create Shoe", new_shoe_path )%>
+<% end %>

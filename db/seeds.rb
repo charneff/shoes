@@ -4,9 +4,9 @@
 # Examples:
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-Shoe.create([
-  {brand: "Nike", color: 'hot pink', price: 60.50, limited_edition: false},
-  {brand: "Nike", color: 'jet black', price: 100.50, limited_edition: true},
-  {brand: "Adidas", color: 'lime green', price: 35.99, limited_edition: false}
-])
+# #   Character.create(name: 'Luke', movie: movies.first)
+# Shoe.create([
+#   {brand: "Nike", color: 'hot pink', price: 60.50, limited_edition: false},
+#   {brand: "Nike", color: 'jet black', price: 100.50, limited_edition: true},
+#   {brand: "Adidas", color: 'lime green', price: 35.99, limited_edition: false}
+# ])

@@ -1,12 +1,12 @@
 class ShoesController < ApplicationController
-    layout 'shoe'
-    before_action :find_shoe, only: [:show, :update, :edit, :destroy]
+    # layout 'shoe'
+    before_action :find_shoe, :redirect_if_not_owner, only: [:show, :update, :edit, :destroy]
 
     def index
         if params[:brand_id] && @brand = Brand.find_by_id(params[:brand_id])
-            @shoes = @brand.shoes.ordered_by_price
+            @shoes = @brand.shoes
         else
-            @shoes = Shoe.ordered_by_price
+            @shoes = Shoe.ordered_by_price.less_pricey(80)
         end 
     end
 
@@ -15,11 +15,9 @@ class ShoesController < ApplicationController
     end
 
     def new 
+        byebug
         if params[:brand_id] && @brand = Brand.find_by_id(params[:brand_id])
-            # @shoe = Shoe.new
-            # @shoe.brand = @brand 
-            @shoe = @brand.shoes.build
-           
+            @shoe = @brand.shoes.build  
         else
             @shoe = Shoe.new
             @shoe.build_brand
@@ -28,17 +26,18 @@ class ShoesController < ApplicationController
 
     def create
         
-        @shoe = Shoe.new(shoe_params)
-        
+        @shoe = current_user.shoes.build(shoe_params)
+       byebug
         if @shoe.save
             redirect_to shoe_path(@shoe)
         else
+            @brand = Brand.find_by_id(params[:brand_id]) if params[:brand_id] != ""
             render :new
         end 
     end 
 
     def edit
-        @shoe = Shoe.find(params[:id])
+    
     end 
 
     def update 
@@ -73,5 +72,11 @@ class ShoesController < ApplicationController
     def find_shoe
         @shoe = Shoe.find(params[:id])
     end 
+
+    def redirect_if_not_owner
+        if @shoe.user != current_user
+            redirect_to user_path(current_user), alert: "You can't edit this shoe!"
+        end
+    end
 
 end
